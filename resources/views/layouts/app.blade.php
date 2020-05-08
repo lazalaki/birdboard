@@ -20,7 +20,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
-<body class="bg-gray-250">
+<body class="bg-gray-200">
     <div id="app">
         <nav class="bg-white">
             <div class="container mx-auto">
@@ -72,7 +72,7 @@
             </div>
         </nav>
 
-        <main class="bg-gray-200 rounded container mx-auto py-4">
+        <main class="rounded container mx-auto py-4">
             @yield('content')
         </main>
     </div>
