@@ -5,9 +5,12 @@ namespace App;
 use App\Activity;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Task extends Model
 {
+
+    use RecordsActivity;
 
     protected $guarded = [];
 
@@ -16,6 +19,7 @@ class Task extends Model
     protected $casts = [
         'completed' => 'boolean'
     ];
+
 
 
 
@@ -48,20 +52,4 @@ class Task extends Model
         $this->recordActivity('incompleted_task');
     }
 
-
-
-    public function recordActivity($description)
-    {
-
-        $this->activity()->create([
-            'project_id' => $this->project->id,
-            'description' => $description
-        ]);
-        
-    }
-
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();// subject kolona koju gleda, gledace i subject_id i subject_type jer je morph
-    }
 }
