@@ -210,19 +210,28 @@ class ManageProjectsTest extends TestCase
 
 
 
+    /** @test */
+    function an_authenticated_user_cannot_update_projects_of_others()
+    {
+        
+        $this->signIn();
+
+        // $this->withoutExceptionHandling();
+
+        $project = factory(Project::class)->create();
+
+        $this->patch($project->path())->assertStatus(403);
+    }
+
+
+
+
         /** @test */
-        function an_authenticated_user_cannot_update_projects_of_others()
-        {
-            
-            $this->signIn();
-    
-            // $this->withoutExceptionHandling();
-    
-            $project = factory(Project::class)->create();
-    
-            $this->patch($project->path())->assertStatus(403);
-        }
+    function a_user_can_see_all_projects_they_have_been_invited_to_on_their_dashboard()
+    {
+        $project = tap(ProjectFactory::create())->invite($this->signIn());
 
-
+        $this->get('/projects')->assertSee($project->title);
+    }
         
 }
